@@ -22,7 +22,7 @@ public class ImgToDds {
         return outputPath;
     }
 
-    public static ByteBuffer[] convertToMipmaps(BufferedImage image) {
+    private static ByteBuffer[] convertToMipmaps(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
         int numMipmaps = calculateNumMipmaps(width, height);
