@@ -1,4 +1,4 @@
-package com.pngtodds.util;
+package com.pngtodds.utils;
 
 import com.jogamp.opengl.util.texture.spi.DDSImage;
 
@@ -8,18 +8,30 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-//@Slf4j
-public class ImgToDds {
+public class DDSUtils {
     private static final int BYTES_PER_PIXEL = 4;
 
-    public static String getDDSName(String inputPath, String outputPath) throws IOException {
-        BufferedImage image = ImageIO.read(new File(inputPath));
-        ByteBuffer[] mipmaps = convertToMipmaps(image);
-        DDSImage ddsImage = DDSImage.createFromData(DDSImage.D3DFMT_A8R8G8B8, image.getWidth(), image.getHeight(), mipmaps);
-        ddsImage.write(outputPath);
-//        log.info("图像：{}转换完成", outputPath);
-        System.out.println("图像：" + outputPath + "转换完成");
-        return outputPath;
+    public static void saveDDS(String inputPath, String outputPath) {
+        try {
+            BufferedImage image = ImageIO.read(new File(inputPath));
+            ByteBuffer[] mipmaps = convertToMipmaps(image);
+            DDSImage ddsImage = DDSImage.createFromData(DDSImage.D3DFMT_A8R8G8B8, image.getWidth(), image.getHeight(), mipmaps);
+            ddsImage.write(outputPath);
+            ddsImage.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void saveDDS(BufferedImage bufferedImage, String path) {
+        try {
+            ByteBuffer[] mipmaps = convertToMipmaps(bufferedImage);
+            DDSImage ddsImage = DDSImage.createFromData(DDSImage.D3DFMT_A8R8G8B8, bufferedImage.getWidth(), bufferedImage.getHeight(), mipmaps);
+            ddsImage.write(path);
+            ddsImage.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static ByteBuffer[] convertToMipmaps(BufferedImage image) {

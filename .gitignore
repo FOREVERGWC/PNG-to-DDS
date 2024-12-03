@@ -23,3 +23,6 @@
 hs_err_pid*
 replay_pid*
 /.idea/
+/PNG-to-DDS.iml
+/target/
+src/main/resources/tag/*
