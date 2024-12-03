@@ -26,3 +26,4 @@ replay_pid*
 /PNG-to-DDS.iml
 /target/
 src/main/resources/tag/*
+/generator/

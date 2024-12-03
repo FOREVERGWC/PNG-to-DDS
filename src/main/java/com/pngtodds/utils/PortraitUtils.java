@@ -28,23 +28,28 @@ public class PortraitUtils {
      * @return 人物肖像
      */
     public static Large getLarge(String tag, String key, String parent) {
+        String base = parent + File.separator + "gfx" + FileUtil.FILE_SEPARATOR + "leaders" + File.separator + tag;
+        FileUtil.mkdir(base);
         String largeKey = PortraitUtils.getLargeKey(key);
         String gfx = PortraitUtils.getLargeGfx(tag, key);
-        String path = parent + FileUtil.FILE_SEPARATOR + gfx;
+        String path = base + FileUtil.FILE_SEPARATOR + gfx;
         return new Large(largeKey, gfx, path);
     }
 
     /**
      * 获取内阁肖像
      *
+     * @param tag    国家标签
      * @param key    姓名键值
      * @param parent 父级路径
      * @return 人物肖像
      */
-    public static Small getSmall(String key, String parent) {
+    public static Small getSmall(String tag, String key, String parent) {
+        String base = parent + File.separator + "gfx" + FileUtil.FILE_SEPARATOR + "interface" + File.separator + "ideas" + FileUtil.FILE_SEPARATOR + "characters" + FileUtil.FILE_SEPARATOR + tag;
+        FileUtil.mkdir(base);
         String smallKey = PortraitUtils.getSmallKey(key);
         String gfx = PortraitUtils.getSmallGfx(key);
-        String path = parent + FileUtil.FILE_SEPARATOR + gfx;
+        String path = base + FileUtil.FILE_SEPARATOR + gfx;
         return new Small(smallKey, gfx, path);
     }
 
