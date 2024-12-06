@@ -2,6 +2,7 @@ package com.pngtodds.demo;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
+import cn.hutool.core.util.StrUtil;
 import com.github.houbb.opencc4j.util.ZhConverterUtil;
 import com.pngtodds.domain.*;
 import com.pngtodds.utils.*;
@@ -16,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HOI4 {
     private final static String TAG = "tag";
@@ -31,6 +33,8 @@ public class HOI4 {
     static List<Localisation> japaneseList = new LinkedList<>();
     static List<Localisation> englishList = new LinkedList<>();
     static List<Localisation> russianList = new LinkedList<>();
+    static List<String> recruitList = new LinkedList<>();
+    static List<String> mdList = new LinkedList<>();
 
     public static void main(String[] args) throws URISyntaxException {
         String path = Paths.get(HOI4.class.getClassLoader().getResource(TAG).toURI()).toString();
@@ -44,6 +48,8 @@ public class HOI4 {
         japaneseList.forEach(System.out::println);
         englishList.forEach(System.out::println);
 //        russianList.forEach(System.out::println);
+        recruitList.forEach(System.out::println);
+        System.out.println(String.join("、", mdList));
     }
 
     private static void generator(File item) {
@@ -75,6 +81,8 @@ public class HOI4 {
             englishList.add(new Localisation(characterKey, englishName));
             // TODO 调用翻译API
             russianList.add(new Localisation(characterKey, englishName));
+            recruitList.add(StrUtil.format("recruit_character = {}", characterKey));
+            mdList.add(StrUtil.format("{}{}", tag, chineseName));
         });
     }
 

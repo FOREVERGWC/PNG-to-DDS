@@ -14,6 +14,8 @@ public class TraitUtils {
         map.put("职业军官", "career_officer");
         map.put("工兵指挥官", "trait_engineer");
         map.put("政治关联者", "politically_connected");
+        map.put("严厉指挥官", "harsh_leader");
+        map.put("优秀参谋辅佐", "skilled_staffer");
     }
 
     /**
