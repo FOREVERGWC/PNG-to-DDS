@@ -3,6 +3,7 @@ package com.pngtodds.utils;
 import com.jogamp.opengl.util.texture.spi.DDSImage;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -45,10 +46,15 @@ public class DDSUtils {
             int currentWidth = Math.max(image.getWidth() >> i, 1);
             int currentHeight = Math.max(image.getHeight() >> i, 1);
 
+            BufferedImage mipmapImage = new BufferedImage(currentWidth, currentHeight, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = mipmapImage.createGraphics();
+            g.drawImage(image, 0, 0, currentWidth, currentHeight, null);
+            g.dispose();
+
             int bufferSize = currentWidth * currentHeight * BYTES_PER_PIXEL;
             ByteBuffer buffer = ByteBuffer.allocateDirect(bufferSize);
 
-            int[] pixels = image.getRGB(0, 0, currentWidth, currentHeight, null, 0, currentWidth);
+            int[] pixels = mipmapImage.getRGB(0, 0, currentWidth, currentHeight, null, 0, currentWidth);
             for (int pixel : pixels) {
                 int alpha = (pixel >> 24) & 0xFF;
                 int red = (pixel >> 16) & 0xFF;
